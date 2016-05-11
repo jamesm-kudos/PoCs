@@ -64,7 +64,7 @@ rm requestheaders
 set +b
 echo ""
 
-NONCE=$(cat /dev/urandom | base64 | fold -w 8 | head -n 1)
+NONCE=$(dd if=/dev/urandom count=1 bs=512 | base64 | fold -w 8 | head -n 1)
 echo "testing http with nonce: ${NONCE}"
 IP=$(curl -q -s ifconfig.co)
 sed "s:NONCE:${NONCE}:g" http.jpg > http1.jpg
